@@ -1,17 +1,79 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-title>
-      Tab 1
+      719 Café
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <ion-grid class="ion-no-padding">
+    <ion-row *ngFor="let item of this.service.list; trackBy : trackByFn">
+      <ion-col>
+        <ion-card>
+          <ion-card-content class="ion-no-padding">
+            <ion-row>
+              <ion-col class="ion-padding">
+                <ion-img src="{{this.service.host+'/api/Imgarticles/'+item.id}}" 
+        style="height :150px;width:200px" alt=""></ion-img>
+      </ion-col>
+            
+              <ion-col class="ion-padding">
+                <ion-row>
+                  <ion-col>
+                    <span class="font-14 text-bold"> {{item.libelle}} </span>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col>
+                    <span [ngClass]="item.stock > 0 ? 'text-green':'text-red'">
+                      {{item.stock}}
+                    </span>
+                    <ion-icon
+                      *ngIf="item.stock>0"
+                      color="success"
+                      name="home-outline"
+                    ></ion-icon>
+                    <ion-icon
+                      *ngIf="item.stock<=0"
+                      color="danger"
+                      name="home-outline"
+                    ></ion-icon>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-row>
+                    <ion-col>
+                      <span class="font-16 before-digit">
+                        {{formatNumberBeforeDigit(item.pv)}},
+                      </span>
+                      <span class="font-10 after-digit">
+                        {{formatNumberAfterDigit(item.pv)}} DT
+                      </span>
+                    </ion-col>
+                  </ion-row>
+                </ion-row>
+                <ion-row>
+                  <ion-col>
+                    <ion-button color="success">
+                      <ion-icon slot="start" name="cart">                       +
+                      </ion-icon>
+                      +
+                    </ion-button>
+                  </ion-col>
+                  <ion-col>
+                    <ion-button color="warning">
+                      <ion-icon slot="start" name="cart"></ion-icon>
+                      -
+                    </ion-button>
+                  </ion-col>
+                </ion-row>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+              </ion-col>
+            </ion-row>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
